@@ -12,7 +12,7 @@ Vector3 calculateGravitationalForce(Body body1, Body body2) {
     return force;
   }
 
-  const double G = 6.6743e-11;
+  const double G = 1;
 
   double forceMultiplier =
       G * ((body1.mass * body2.mass) / (distance * distance));
@@ -37,9 +37,10 @@ void applyGravity(Body bodies[], int count) {
       Vector3 forceThatBe = calculateGravitationalForce(bodies[i], bodies[j]);
 
       // Apply the force that be to both bodies
-      bodies[i].acceleration = Vector3Add(bodies[i].acceleration, forceThatBe);
+      bodies[i].acceleration =
+          Vector3Negate(Vector3Add(bodies[i].acceleration, forceThatBe));
       bodies[j].acceleration =
-          Vector3Subtract(bodies[j].acceleration, forceThatBe);
+          Vector3Negate(Vector3Subtract(bodies[j].acceleration, forceThatBe));
     }
   }
 }
