@@ -1,6 +1,9 @@
 #pragma once
 #include "../physics/body.h"
+#include "../physics/gravity.h"
+#include "../physics/integrator.h"
 #include "../renderer/renderer.h"
+#include "../renderer/ui.h"
 #include "camera.h"
 #include "raylib.h"
 
@@ -13,7 +16,7 @@ typedef struct {
 } Simulation;
 
 void SimulationInit(Simulation *sim);
-void SimulationUpdate(Simulation *sim);
+void SimulationUpdate(Simulation *sim, float dt);
 void SimulationDraw(Simulation *sim);
 void SimulationShutdown(Simulation *sim);
 

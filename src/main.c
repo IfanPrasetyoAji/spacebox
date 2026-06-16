@@ -1,4 +1,5 @@
 #include "core/simulation.h"
+#include <raylib.h>
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -16,7 +17,8 @@ int main(void) {
   // Main game loop
   while (!WindowShouldClose()) {
     ClearBackground(BLACK);
-    SimulationUpdate(sim);
+    float dt = GetFrameTime();
+    SimulationUpdate(sim, dt);
     SimulationDraw(sim);
   }
 
