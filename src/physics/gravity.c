@@ -1,5 +1,4 @@
-#include "body.c"
-#include "raylib.h"
+#include "gravity.h"
 #include "raymath.h"
 
 Vector3 calculateGravitationalForce(Body body1, Body body2) {
