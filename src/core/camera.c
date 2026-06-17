@@ -12,6 +12,7 @@ void CameraInit(CameraController *cc) {
 
   cc->movementSpeed = 5.0f;
   cc->rotationSpeed = 0.1f;
+  cc->zoomMultiplier = 5.0f;
 }
 
 void CameraUpdate(CameraController *cc) {
@@ -63,7 +64,7 @@ void _HandleCameraRotation(CameraController *cc) {
 }
 
 void _HandleCameraZoom(CameraController *cc) {
-  cc->zoom -= GetMouseWheelMove() * 1.0f;
+  cc->zoom -= GetMouseWheelMove() * cc->zoomMultiplier;
 
   if (IsMouseButtonPressed(MOUSE_MIDDLE_BUTTON)) {
     cc->zoom = 0.0f;

@@ -10,6 +10,7 @@ typedef struct {
 
   float movementSpeed;
   float rotationSpeed;
+  float zoomMultiplier;
 
   Vector2 lastCursorLocation;
 } CameraController;
