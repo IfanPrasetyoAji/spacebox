@@ -1,5 +1,11 @@
 #include "simulation.h"
+#include "input/camera.h"
+#include "physics/gravity.h"
+#include "physics/integrator.h"
+#include "renderer/renderer.h"
+#include "renderer/ui.h"
 #include <raylib.h>
+#include <stdlib.h>
 
 CameraController cc;
 
@@ -39,7 +45,7 @@ void SimulationUpdate(Simulation *sim, float dt) {
   applyGravity(sim->bodies, sim->bodyCount);
 
   for (int i = 0; i < sim->bodyCount; i++) {
-    SimplecticEuler(&sim->bodies[i], dt);
+    SymplecticEuler(&sim->bodies[i], dt);
   }
 }
 
@@ -50,7 +56,7 @@ void SimulationDraw(Simulation *sim) {
 
   BeginMode3D(GetCamera(&cc));
 
-  DrawBodies(sim->bodies, 2);
+  DrawBodies(sim->bodies, sim->bodyCount);
   DrawGrid(500, 10.0f);
 
   EndMode3D();

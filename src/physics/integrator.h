@@ -1,6 +1,4 @@
 #pragma once
-#include "body.h"
-#include "raylib.h"
-#include "raymath.h"
+#include "physics/body.h"
 
-void SimplecticEuler(Body *body, float dt);
+void SymplecticEuler(Body *body, float dt);
