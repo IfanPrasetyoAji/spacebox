@@ -3,7 +3,7 @@ CFLAGS = -Wall -Wextra -I src
 LDLIBS = -lraylib -lm
 
 SRC = src/main.c $(wildcard src/**/*.c src/*.c) 
-BIN = n-body.o
+BIN = spacebox 
 
 all: $(BIN)
 
