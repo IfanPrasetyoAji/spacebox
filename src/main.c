@@ -1,28 +1,3 @@
-#include "core/simulation.h"
-#include <raylib.h>
-#include <stdbool.h>
-#include <stdlib.h>
+#include "core/application.h"
 
-int main(void) {
-  const int screenWidth = 1600;
-  const int screenHeight = 800;
-
-  SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-  InitWindow(screenWidth, screenHeight, "SpaceBox");
-
-  SetTargetFPS(60);
-
-  Simulation *sim = malloc(sizeof(Simulation));
-  SimulationInit(sim);
-
-  // Main game loop
-  while (!WindowShouldClose()) {
-    float dt = GetFrameTime();
-    SimulationUpdate(sim, dt);
-    SimulationDraw(sim);
-  }
-
-  SimulationShutdown(sim);
-
-  free(sim);
-}
+int main(void) { app_run(); }
