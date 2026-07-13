@@ -46,6 +46,8 @@ void SimulationUpdate(Simulation *sim, float dt) {
 void SimulationDraw(Simulation *sim) {
   BeginDrawing();
 
+  ClearBackground(BLACK);
+
   BeginMode3D(GetCamera(&cc));
 
   DrawBodies(sim->bodies, 2);

@@ -17,7 +17,6 @@ int main(void) {
 
   // Main game loop
   while (!WindowShouldClose()) {
-    ClearBackground(BLACK);
     float dt = GetFrameTime();
     SimulationUpdate(sim, dt);
     SimulationDraw(sim);
