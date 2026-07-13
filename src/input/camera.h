@@ -15,11 +15,6 @@ typedef struct {
   Vector2 lastCursorLocation;
 } CameraController;
 
-void CameraInit(CameraController *cc);
-void CameraUpdate(CameraController *cc);
-Camera3D GetCamera(CameraController *cc);
-void PrintCameraData(CameraController *cc);
-
-void _HandleCameraMovement(CameraController *cc);
-void _HandleCameraRotation(CameraController *cc);
-void _HandleCameraZoom(CameraController *cc);
+void camera_init(CameraController *cc);
+void camera_update(CameraController *cc);
+Camera3D get_camera(CameraController *cc);

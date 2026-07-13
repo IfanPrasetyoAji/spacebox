@@ -2,34 +2,7 @@
 #include <raylib.h>
 #include <raymath.h>
 
-void CameraInit(CameraController *cc) {
-  cc->cam = (Camera3D){0};
-  cc->cam.position = (Vector3){0.0f, 20.0f, 40.0f};
-  cc->cam.target = (Vector3){0.0f, 0.0f, 0.0f};
-  cc->cam.up = (Vector3){0.0f, 1.0f, 0.0f};
-  cc->cam.fovy = 45.0f;
-  cc->cam.projection = CAMERA_PERSPECTIVE;
-
-  cc->movementSpeed = 5.0f;
-  cc->rotationSpeed = 0.1f;
-  cc->zoomMultiplier = 5.0f;
-}
-
-void CameraUpdate(CameraController *cc) {
-  cc->movement = (Vector3){0.0f, 0.0f, 0.0f};
-  cc->rotation = (Vector3){0.0f, 0.0f, 0.0f};
-  cc->zoom = 0.0f;
-
-  _HandleCameraMovement(cc);
-  _HandleCameraRotation(cc);
-  _HandleCameraZoom(cc);
-
-  UpdateCameraPro(&cc->cam, cc->movement, cc->rotation, cc->zoom);
-}
-
-Camera3D GetCamera(CameraController *cc) { return cc->cam; }
-
-void _HandleCameraMovement(CameraController *cc) {
+static void handle_camera_movement(CameraController *cc) {
   if (IsKeyDown(KEY_W))
     cc->movement.x += 0.1f;
   if (IsKeyDown(KEY_S))
@@ -42,7 +15,7 @@ void _HandleCameraMovement(CameraController *cc) {
   cc->movement = Vector3Scale(cc->movement, cc->movementSpeed);
 }
 
-void _HandleCameraRotation(CameraController *cc) {
+static void handle_camera_rotation(CameraController *cc) {
   Vector2 delta = GetMouseDelta();
 
   if (IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
@@ -63,10 +36,37 @@ void _HandleCameraRotation(CameraController *cc) {
   cc->rotation = Vector3Scale(cc->rotation, cc->rotationSpeed);
 }
 
-void _HandleCameraZoom(CameraController *cc) {
+static void handle_camera_zoom(CameraController *cc) {
   cc->zoom -= GetMouseWheelMove() * cc->zoomMultiplier;
 
   if (IsMouseButtonPressed(MOUSE_MIDDLE_BUTTON)) {
     cc->zoom = 0.0f;
   }
 }
+
+void camera_init(CameraController *cc) {
+  cc->cam = (Camera3D){0};
+  cc->cam.position = (Vector3){0.0f, 20.0f, 40.0f};
+  cc->cam.target = (Vector3){0.0f, 0.0f, 0.0f};
+  cc->cam.up = (Vector3){0.0f, 1.0f, 0.0f};
+  cc->cam.fovy = 45.0f;
+  cc->cam.projection = CAMERA_PERSPECTIVE;
+
+  cc->movementSpeed = 5.0f;
+  cc->rotationSpeed = 0.1f;
+  cc->zoomMultiplier = 5.0f;
+}
+
+void camera_update(CameraController *cc) {
+  cc->movement = (Vector3){0.0f, 0.0f, 0.0f};
+  cc->rotation = (Vector3){0.0f, 0.0f, 0.0f};
+  cc->zoom = 0.0f;
+
+  handle_camera_movement(cc);
+  handle_camera_rotation(cc);
+  handle_camera_zoom(cc);
+
+  UpdateCameraPro(&cc->cam, cc->movement, cc->rotation, cc->zoom);
+}
+
+Camera3D get_camera(CameraController *cc) { return cc->cam; }

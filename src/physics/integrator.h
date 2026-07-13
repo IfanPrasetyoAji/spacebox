@@ -1,4 +1,4 @@
 #pragma once
 #include "physics/body.h"
 
-void SymplecticEuler(Body *body, float dt);
+void symplectic_euler(Body *body, float dt);
