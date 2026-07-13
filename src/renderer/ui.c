@@ -1,7 +1,14 @@
 #include "ui.h"
 #include <raylib.h>
 
-void PrintBodyData(Font font, Body body) {
+void ui_init(UIController *ui) {
+  ui->regularFont =
+      LoadFontEx("assets/fonts/IoskeleyMono-Medium.ttf", 24, nullptr, 0);
+  GenTextureMipmaps(&ui->regularFont.texture);
+  SetTextureFilter(ui->regularFont.texture, TEXTURE_FILTER_BILINEAR);
+}
+
+void ui_draw_body_data(Font font, Body body) {
   DrawTextEx(font, TextFormat("Body ID: %i", body.id), (Vector2){10, 10}, 20,
              0.0f, WHITE);
 
@@ -22,3 +29,5 @@ void PrintBodyData(Font font, Body body) {
                         body.velocity.y, body.velocity.z),
              (Vector2){10, 110}, 20, 0.0f, WHITE);
 }
+
+void ui_shutdown(UIController *ui) { UnloadFont(ui->regularFont); }
