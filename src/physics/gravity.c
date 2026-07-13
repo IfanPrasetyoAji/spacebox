@@ -1,28 +1,18 @@
 #include "gravity.h"
-#include "raymath.h"
+#include <raymath.h>
 
 Vector3 calculateGravitationalForce(Body body1, Body body2) {
-  Vector3 force = {0.0f, 0.0f, 0.0f};
+  const float G = 1.0f;
 
-  Vector3 direction = Vector3Subtract(body1.position, body2.position);
+  Vector3 direction = Vector3Subtract(body2.position, body1.position);
+  float distanceSquared = Vector3LengthSqr(direction);
 
-  float distance = Vector3Distance(body1.position, body2.position);
-
-  if (distance == 0.0f) {
-    return force;
+  if (distanceSquared <= 0.0000001f) {
+    return Vector3Zero();
   }
 
-  const double G = 1;
-
-  double forceMultiplier =
-      G * ((body1.mass * body2.mass) / (distance * distance));
-
-  Vector3 unitVector = {direction.x / distance, direction.y / distance,
-                        direction.z / distance};
-
-  force = Vector3Scale(unitVector, forceMultiplier);
-
-  return force;
+  float forceManitude = (G * body1.mass * body2.mass) / distanceSquared;
+  return Vector3Scale(Vector3Normalize(direction), forceManitude);
 }
 
 void resetAcceleration(Body bodies[], int count) {
@@ -33,14 +23,17 @@ void resetAcceleration(Body bodies[], int count) {
 
 void applyGravity(Body bodies[], int count) {
   for (int i = 0; i < count; i++) {
+    if (!bodies[i].isActive || bodies[i].mass == 0.0f)
+      continue;
+
     for (int j = i + 1; j < count; j++) {
+      if (!bodies[j].isActive || bodies[j].mass == 0.0f)
+        continue;
+
       Vector3 forceThatBe = calculateGravitationalForce(bodies[i], bodies[j]);
 
-      // Apply the force that be to both bodies
-      bodies[i].acceleration =
-          Vector3Negate(Vector3Add(bodies[i].acceleration, forceThatBe));
-      bodies[j].acceleration =
-          Vector3Negate(Vector3Subtract(bodies[j].acceleration, forceThatBe));
+      bodies[i].acceleration = Vector3Scale(forceThatBe, 1.0f / bodies[i].mass);
+      bodies[j].acceleration = Vector3Scale(forceThatBe, 1.0f / bodies[j].mass);
     }
   }
 }
