@@ -2,4 +2,4 @@
 #include "../physics/body.h"
 #include "raylib.h"
 
-void PrintBodyData(Body body);
+void PrintBodyData(Font font, Body body);

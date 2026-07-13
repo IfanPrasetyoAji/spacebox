@@ -1,4 +1,5 @@
 #include "simulation.h"
+#include <raylib.h>
 
 CameraController cc;
 
@@ -26,6 +27,8 @@ void SimulationInit(Simulation *sim) {
   _AddBody(sim, body1);
   _AddBody(sim, body2);
 
+  _LoadFont(sim);
+
   CameraInit(&cc);
 }
 
@@ -42,7 +45,7 @@ void SimulationUpdate(Simulation *sim, float dt) {
 
 void SimulationDraw(Simulation *sim) {
   BeginDrawing();
-  PrintBodyData(sim->bodies[0]);
+
   BeginMode3D(GetCamera(&cc));
 
   DrawBodies(sim->bodies, 2);
@@ -50,10 +53,14 @@ void SimulationDraw(Simulation *sim) {
 
   EndMode3D();
 
+  PrintBodyData(sim->regularFont, sim->bodies[0]);
   EndDrawing();
 }
 
-void SimulationShutdown(Simulation *sim) { CloseWindow(); }
+void SimulationShutdown(Simulation *sim) {
+  UnloadFont(sim->regularFont);
+  CloseWindow();
+}
 
 bool _AddBody(Simulation *sim, Body body) {
   if (sim->bodyCount >= MAX_BODIES) {
@@ -64,4 +71,13 @@ bool _AddBody(Simulation *sim, Body body) {
   sim->bodyCount++;
 
   return true;
+}
+
+bool _LoadFont(Simulation *sim) {
+  sim->regularFont =
+      LoadFontEx("assets/fonts/IoskeleyMono-Medium.ttf", 24, NULL, 0);
+  GenTextureMipmaps(&sim->regularFont.texture);
+  SetTextureFilter(sim->regularFont.texture, TEXTURE_FILTER_BILINEAR);
+
+  return IsFontValid(sim->regularFont);
 }

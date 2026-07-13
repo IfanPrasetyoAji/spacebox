@@ -6,6 +6,7 @@
 #include "../renderer/ui.h"
 #include "camera.h"
 #include "raylib.h"
+#include <stdlib.h>
 
 #define MAX_BODIES 1000000
 
@@ -13,6 +14,8 @@ typedef struct {
   Body bodies[MAX_BODIES];
   int bodyCount;
   float timeScale;
+
+  Font regularFont;
 } Simulation;
 
 void SimulationInit(Simulation *sim);
@@ -21,3 +24,4 @@ void SimulationDraw(Simulation *sim);
 void SimulationShutdown(Simulation *sim);
 
 bool _AddBody(Simulation *sim, Body body);
+bool _LoadFont(Simulation *sim);

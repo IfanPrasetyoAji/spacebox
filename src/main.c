@@ -7,7 +7,8 @@ int main(void) {
   const int screenWidth = 1600;
   const int screenHeight = 800;
 
-  InitWindow(screenWidth, screenHeight, "N-Sim");
+  SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+  InitWindow(screenWidth, screenHeight, "SpaceBox");
 
   SetTargetFPS(60);
 
@@ -23,5 +24,6 @@ int main(void) {
   }
 
   SimulationShutdown(sim);
+
   free(sim);
 }
