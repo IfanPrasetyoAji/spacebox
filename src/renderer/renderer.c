@@ -1,8 +1,10 @@
 #include "renderer.h"
 #include "raylib.h"
+#include "utils/bodyVector.h"
 
-void DrawBodies(Body bodies[], int count) {
+void draw_bodies(BodyVector bodies, int count) {
   for (int i = 0; i < count; i++) {
-    DrawSphere(bodies[i].position, bodies[i].radius, bodies[i].color);
+    DrawSphere(bodies.data[i].position, bodies.data[i].radius,
+               bodies.data[i].color);
   }
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "physics/body.h"
+#include "utils/bodyVector.h"
 
-void resetAcceleration(Body bodies[], int count);
-void applyGravity(Body bodies[], int count);
+void reset_acceleration(BodyVector bodies, int count);
+void apply_gravity(BodyVector bodies, int count);

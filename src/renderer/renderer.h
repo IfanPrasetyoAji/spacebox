@@ -1,4 +1,4 @@
 #pragma once
-#include "../physics/body.h"
+#include "utils/bodyVector.h"
 
-void DrawBodies(Body bodies[], int count);
+void draw_bodies(BodyVector bodies, int count);

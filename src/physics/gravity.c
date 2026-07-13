@@ -1,7 +1,7 @@
 #include "gravity.h"
 #include <raymath.h>
 
-Vector3 calculateGravitationalForce(Body body1, Body body2) {
+Vector3 calculate_grav_force(Body body1, Body body2) {
   const float G = 1.0f;
 
   Vector3 direction = Vector3Subtract(body2.position, body1.position);
@@ -15,25 +15,28 @@ Vector3 calculateGravitationalForce(Body body1, Body body2) {
   return Vector3Scale(Vector3Normalize(direction), forceManitude);
 }
 
-void resetAcceleration(Body bodies[], int count) {
+void reset_acceleration(BodyVector bodies, int count) {
   for (int i = 0; i < count; i++) {
-    bodies[i].acceleration = Vector3Zero();
+    bodies.data[i].acceleration = Vector3Zero();
   }
 }
 
-void applyGravity(Body bodies[], int count) {
+void apply_gravity(BodyVector bodies, int count) {
   for (int i = 0; i < count; i++) {
-    if (!bodies[i].isActive || bodies[i].mass == 0.0f)
+    if (!bodies.data[i].isActive || bodies.data[i].mass == 0.0f)
       continue;
 
     for (int j = i + 1; j < count; j++) {
-      if (!bodies[j].isActive || bodies[j].mass == 0.0f)
+      if (!bodies.data[j].isActive || bodies.data[j].mass == 0.0f)
         continue;
 
-      Vector3 forceThatBe = calculateGravitationalForce(bodies[i], bodies[j]);
+      Vector3 forceThatBe =
+          calculate_grav_force(bodies.data[i], bodies.data[j]);
 
-      bodies[i].acceleration = Vector3Scale(forceThatBe, 1.0f / bodies[i].mass);
-      bodies[j].acceleration = Vector3Scale(forceThatBe, 1.0f / bodies[j].mass);
+      bodies.data[i].acceleration =
+          Vector3Scale(forceThatBe, 1.0f / bodies.data[i].mass);
+      bodies.data[j].acceleration =
+          Vector3Scale(forceThatBe, 1.0f / bodies.data[j].mass);
     }
   }
 }
