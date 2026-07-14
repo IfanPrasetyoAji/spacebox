@@ -3,6 +3,7 @@
 
 typedef struct Body {
   unsigned int id;
+  char name[64];
 
   Vector3 position;
   Vector3 velocity;

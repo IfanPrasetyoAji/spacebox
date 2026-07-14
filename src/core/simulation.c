@@ -8,6 +8,7 @@
 void simulation_init(Simulation *sim) {
   vector_init(&sim->bodies, 10);
   Body body1 = {1,
+                "Earth",
                 {-20.0f, 0.0f, 0.0f},
                 {1.0f, 0.0f, 2.0f},
                 {0.0f, 0.0f, 0.0f},
@@ -17,6 +18,7 @@ void simulation_init(Simulation *sim) {
                 true};
 
   Body body2 = {2,
+                "Earth 2",
                 {20.0f, 0.0f, 0.0f},
                 {0.0f, 0.0f, 0.0f},
                 {0.0f, 0.0f, 0.0f},
