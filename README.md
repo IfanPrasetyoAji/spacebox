@@ -10,5 +10,5 @@ After installing raylib, you can compile the program using the following command
 make && make run
 ```
 
-[!NOTE]
-The program is still under development and have only been tested on linux, so you may encounter bugs or incomplete features. Please report any issues you find on the project's GitHub page.
+>[!NOTE]
+>The program is still under development and have only been tested on linux, so you may encounter bugs or incomplete features. Please report any issues you find on the project's GitHub page.
