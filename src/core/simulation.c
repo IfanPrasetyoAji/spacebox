@@ -18,7 +18,7 @@ void simulation_init(Simulation *sim) {
                 true};
 
   Body body2 = {2,
-                "Earth 2",
+                "Biggie",
                 {20.0f, 0.0f, 0.0f},
                 {0.0f, 0.0f, 0.0f},
                 {0.0f, 0.0f, 0.0f},
