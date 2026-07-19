@@ -17,26 +17,24 @@ void vector_add(BodyVector *vec, Body body) {
   vec->data[vec->count++] = body;
 }
 
-Body vector_get_by_index(BodyVector *vec, size_t index) {
+Body *vector_get_by_index(BodyVector *vec, size_t index) {
   if (index < vec->count) {
-    return vec->data[index];
+    return &vec->data[index];
   }
 
   // if out of bound, return default body
-  Body default_body = {0};
-  return default_body;
+  return nullptr;
 }
 
-Body vector_get_by_id(BodyVector *vec, int id) {
+Body *vector_get_by_id(BodyVector *vec, unsigned int id) {
   for (size_t i = 0; i < vec->count; i++) {
     if (vec->data[i].id == id) {
-      return vec->data[i];
+      return &vec->data[i];
     }
   }
 
   // if not found, return default body
-  Body default_body = {0};
-  return default_body;
+  return nullptr;
 }
 
 void vector_free(BodyVector *vec) {
