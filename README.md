@@ -1,5 +1,7 @@
 # SpaceBox 
 
+![Our Solar System in SpaceBox](docs/img/spacebox.gif)
+
 N-Body Simulation program created in C using raylib.
 Currently still work in progress.
 
