@@ -57,7 +57,6 @@ void app_run() {
     DrawGrid(500, 10.0f);
 
     if (selectedBodyId != 0) {
-      // Draw body outline
       draw_body_outline(selectedBody, WHITE);
     }
 

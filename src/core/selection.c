@@ -14,5 +14,5 @@ unsigned int selection_pick_body(BodyVector *bodies, Camera camera,
     }
   }
 
-  return 0; // Placeholder implementation
+  return 0;
 }
