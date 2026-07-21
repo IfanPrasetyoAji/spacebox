@@ -3,7 +3,7 @@
 
 typedef struct {
   BodyVector bodies;
-  float timeScale;
+  float timeMultiplier;
 } Simulation;
 
 void simulation_init(Simulation *sim);

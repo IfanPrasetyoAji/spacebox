@@ -2,7 +2,10 @@
 #include <raymath.h>
 
 Vector3 calculate_grav_force(Body body1, Body body2) {
-  const float G = 1.0f;
+  // Normally G is 6.6743e-11 but this software use
+  // this value instead, to scale with the distance unit used.
+  // (1 Distance Unit = 5e6KM)
+  const float G = 7.9275e-3f;
 
   Vector3 direction = Vector3Subtract(body2.position, body1.position);
   float distanceSquared = Vector3LengthSqr(direction);
@@ -34,9 +37,11 @@ void apply_gravity(BodyVector bodies, int count) {
           calculate_grav_force(bodies.data[i], bodies.data[j]);
 
       bodies.data[i].acceleration =
-          Vector3Scale(forceThatBe, 1.0f / bodies.data[i].mass);
+          Vector3Add(bodies.data[i].acceleration,
+                     Vector3Scale(forceThatBe, 1.0f / bodies.data[i].mass));
       bodies.data[j].acceleration =
-          Vector3Scale(forceThatBe, 1.0f / bodies.data[j].mass);
+          Vector3Add(bodies.data[j].acceleration,
+                     Vector3Scale(forceThatBe, -1.0f / bodies.data[j].mass));
     }
   }
 }

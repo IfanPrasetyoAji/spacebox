@@ -1,34 +1,18 @@
 #include "simulation.h"
 #include "physics/gravity.h"
 #include "physics/integrator.h"
+#include "scenario/solarSystem.h"
 #include "utils/bodyVector.h"
 #include <raylib.h>
 #include <stddef.h>
 
+// to achieve 25 sec per 1 earth revolution on 1x speed
+const float SIM_SPEED = 14.61f;
+
 void simulation_init(Simulation *sim) {
+  sim->timeMultiplier = 1.0f;
   vector_init(&sim->bodies, 10);
-  Body body1 = {1,
-                "Earth",
-                {-20.0f, 0.0f, 0.0f},
-                {1.0f, 0.0f, 2.0f},
-                {0.0f, 0.0f, 0.0f},
-                15.0f,
-                2.0f,
-                SKYBLUE,
-                true};
-
-  Body body2 = {2,
-                "Biggie",
-                {20.0f, 0.0f, 0.0f},
-                {0.0f, 0.0f, 0.0f},
-                {0.0f, 0.0f, 0.0f},
-                10.0f,
-                4.0f,
-                RED,
-                true};
-
-  vector_add(&sim->bodies, body1);
-  vector_add(&sim->bodies, body2);
+  solar_system_init(&sim->bodies);
 }
 
 void simulation_update(Simulation *sim, float dt) {
@@ -36,6 +20,7 @@ void simulation_update(Simulation *sim, float dt) {
   apply_gravity(sim->bodies, sim->bodies.count);
 
   for (size_t i = 0; i < sim->bodies.count; i++) {
-    symplectic_euler(&sim->bodies.data[i], dt);
+    symplectic_euler(&sim->bodies.data[i],
+                     dt * SIM_SPEED * sim->timeMultiplier);
   }
 }
